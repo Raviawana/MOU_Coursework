@@ -1,0 +1,85 @@
+[System]
+Name='Smart Home System For Disabled People'
+Type='mamdani'
+Version=2.0
+NumInputs=4
+NumOutputs=3
+NumRules=16
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Temprature'
+Range=[0 35]
+NumMFs=3
+MF1='Cold':'trimf',[0 0 13]
+MF2='Balanced':'trimf',[11 18 24]
+MF3='Hot':'trimf',[20 30 35]
+
+[Input2]
+Name='Ambient_Light'
+Range=[0 1000]
+NumMFs=3
+MF1='Dark':'trimf',[0 0 300]
+MF2='Medium':'trimf',[200 450 700]
+MF3='Bright':'trimf',[600 1000 1000]
+
+[Input3]
+Name='Occupancy'
+Range=[0 1]
+NumMFs=2
+MF1='Absent':'trimf',[0 0 0.5]
+MF2='Present':'trimf',[0.5 1 1]
+
+[Input4]
+Name='Cleanliness'
+Range=[0 100]
+NumMFs=3
+MF1='Clean':'trimf',[0 0 50]
+MF2='Moderate':'trimf',[30 50 70]
+MF3='Dirty':'trimf',[60 100 100]
+
+[Output1]
+Name='Heater_Control'
+Range=[-5 30]
+NumMFs=3
+MF1='Cool':'trimf',[-10 -10 0]
+MF2='No_Change':'trimf',[-5 0 5]
+MF3='Heat':'trimf',[5 10 10]
+
+[Output2]
+Name='Light_Control'
+Range=[0 100]
+NumMFs=3
+MF1='Dim':'trimf',[0 0 20]
+MF2='Medium':'trimf',[30 50 60]
+MF3='Bright':'trimf',[60 80 100]
+
+[Output3]
+Name='Cleaner_Control'
+Range=[0 100]
+NumMFs=3
+MF1='Off':'trimf',[0 0 0]
+MF2='Slow':'trimf',[10 30 50]
+MF3='Fast':'trimf',[60 80 100]
+
+[Rules]
+1 0 2 0, 3 2 0 (1) : 1
+2 0 1 0, 2 0 0 (1) : 2
+3 3 2 0, 1 0 0 (1) : 1
+0 1 2 0, 0 3 0 (1) : 1
+0 2 2 0, 0 2 0 (1) : 1
+0 3 0 0, 0 1 0 (1) : 1
+0 0 1 3, 0 1 3 (1) : 1
+0 0 1 2, 0 0 3 (1) : 1
+0 0 2 3, 0 0 3 (1) : 1
+0 0 1 1, 0 0 1 (1) : 1
+0 0 2 1, 0 0 1 (1) : 1
+0 0 1 0, 2 1 0 (1) : 1
+1 1 0 0, 3 3 0 (1) : 1
+2 0 0 2, 1 0 2 (1) : 1
+0 0 2 1, 0 0 1 (1) : 1
+1 0 2 0, 3 3 0 (1) : 1
